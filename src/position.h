@@ -134,7 +134,6 @@ public:
   void undo_move(Move m);
   void do_null_move(StateInfo& newSt);
   void undo_null_move();
-  void increment_nodes();
   void increment_tbHits();
 
   // Static Exchange Evaluation
@@ -355,10 +354,6 @@ inline int Position::rule50_count() const {
 
 inline uint64_t Position::nodes_searched() const {
   return nodes;
-}
-
-inline void Position::increment_nodes() {
-  nodes++;
 }
 
 inline uint64_t Position::tb_hits() const {

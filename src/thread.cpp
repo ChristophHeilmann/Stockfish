@@ -34,8 +34,8 @@ ThreadPool Threads; // Global object
 
 Thread::Thread() {
 
-  resetCalls = exit = false;
-  maxPly = callsCnt = 0;
+  exit = false;
+  maxPly = 0;
   tbHits = 0;
   idx = Threads.size(); // Start from 0
 
@@ -163,7 +163,7 @@ uint64_t ThreadPool::nodes_searched() const {
 
   uint64_t nodes = 0;
   for (Thread* th : *this)
-      nodes += th->nodes;
+      nodes += th->rootPos.nodes_searched();
   return nodes;
 }
 
@@ -212,7 +212,6 @@ void ThreadPool::start_thinking(Position& pos, StateListPtr& states,
   {
       th->maxPly = 0;
       th->tbHits = 0;
-      th->nodes = 0;
       th->rootDepth = DEPTH_ZERO;
       th->rootMoves = rootMoves;
       th->rootPos.set(pos.fen(), pos.is_chess960(), &setupStates->back(), th);
