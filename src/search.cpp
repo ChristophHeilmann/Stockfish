@@ -399,8 +399,6 @@ void Thread::search() {
           {
               bestValue = ::search<PV>(rootPos, ss, alpha, beta, rootDepth, false, false);
 
-              this->tbHits = rootPos.tb_hits();
-
               // Bring the best move to the front. It is critical that sorting
               // is done with a stable algorithm because all the values but the
               // first and eventually the new best one are set to -VALUE_INFINITE
@@ -654,7 +652,7 @@ namespace {
 
             if (err != TB::ProbeState::FAIL)
             {
-                pos.increment_tbHits();
+                thisThread->tbHits.fetch_add(1, std::memory_order_relaxed);
 
                 int drawScore = TB::UseRule50 ? 1 : 0;
 

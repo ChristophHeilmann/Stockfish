@@ -61,7 +61,7 @@ public:
   Endgames endgames;
   size_t idx, PVIdx;
   int maxPly;
-  std::atomic<uint64_t> tbHits;
+  std::atomic<uint64_t> nodes, tbHits;
 
   Position rootPos;
   Search::RootMoves rootMoves;
